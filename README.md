@@ -1,60 +1,32 @@
-# BTC/USD Trading Signal Generator
+# AI Voice Chat
 
-BTCUSD の価格データをリアルタイムで取得し、テクニカル指標に基づいてトレードシグナルを生成する Web アプリケーション。
+## 概要
 
-## 機能
+AI Voice Chat は、音声インターフェースを通じて AI と対話できるアプリケーションです。ユーザーの音声入力を受け取り、API リクエストに変換して実行し、結果を音声で返答します。
 
-- BTC/USD のリアルタイム価格取得（5 分間隔）
-- テクニカル指標に基づくトレードシグナル生成（BUY/SELL/HOLD）
-- 価格とシグナルの可視化
+## 主な機能
+
+- 音声認識による入力受付
+- 自然言語から API リクエストへの変換
+- API レスポンスの音声出力
+- 会話履歴の管理
+- 複数の API 対応
 
 ## 技術スタック
 
-- React + TypeScript
-- Material-UI
-- Alpha Vantage API
-- Axios
-
-## システム構成
-
-### 1. データ取得 (`src/api/forexApi.ts`)
-
-- Alpha Vantage API を使用して BTC/USD のリアルタイム価格を取得
-- 環境変数で管理された API キーを使用
-
-### 2. データ管理 (`src/utils/dataStore.ts`)
-
-- 最新 100 件の価格データを保持
-- FIFO（First In First Out）方式でデータを管理
-
-### 3. シグナル生成 (`src/utils/signalGenerator.ts`)
-
-テクニカル指標の計算と判断：
-
-- SMA（単純移動平均）
-  - 短期：5 期間
-  - 長期：20 期間
-- RSI（相対力指数）：14 期間
-
-トレードシグナルの判定条件：
-
-- BUY: 短期 SMA > 長期 SMA かつ RSI < 65
-- SELL: 短期 SMA < 長期 SMA かつ RSI > 35
-- HOLD: 上記以外
-
-### 4. UI (`src/App.tsx`, `src/components/ForexChart.tsx`)
-
-- 現在の価格とトレードシグナルの表示
-- チャートによる価格推移の可視化
-- 5 分ごとの自動更新
+- Frontend: React
+- 音声認識: Web Speech API
+- 音声合成: Web Speech Synthesis API
+- 状態管理: React Context
+- API 通信: Axios
 
 ## セットアップ
 
 1. リポジトリのクローン
 
 ```bash
-git clone https://github.com/w712915/forex-trading-signal.git
-cd forex-trading-signal
+git clone https://github.com/w712915/api-voice-chat.git
+cd api-voice-chat
 ```
 
 2. 依存パッケージのインストール
@@ -64,7 +36,7 @@ npm install
 ```
 
 3. 環境変数の設定
-   `.env`ファイルを作成し、Alpha Vantage API キーを設定
+   `.env`ファイルを作成し、API キーを設定します。
 
 ```bash
 cp env.example .env
@@ -76,12 +48,20 @@ cp env.example .env
 npm run dev
 ```
 
-## 注意事項
+## 使い方
 
-- Alpha Vantage API の無料版を使用する場合、API コール制限があります
-- このアプリケーションは教育目的で作成されており、実際の投資判断には使用しないでください
-- テクニカル指標のパラメータは暗号資産市場の特性を考慮して調整されていますが、必要に応じて変更可能です
+1. ブラウザでアプリケーションを開く
+2. マイクボタンをクリックして音声入力を開始
+3. 実行したい API リクエストを音声で説明
+4. 結果が音声で返答されます
+
+## 開発ガイドライン
+
+- コンポーネントは`src/components`ディレクトリに配置
+- API ロジックは`src/api`ディレクトリに配置
+- 型定義は`src/types`ディレクトリに配置
+- ユーティリティ関数は`src/utils`ディレクトリに配置
 
 ## ライセンス
 
-MIT
+MIT ライセンスの下で公開されています。詳細は[LICENSE](LICENSE)ファイルを参照してください。
